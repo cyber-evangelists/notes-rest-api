@@ -1,0 +1,19 @@
+get all notes
+    get request http://127.0.0.1:8080/notes
+
+get single record
+    get request http://127.0.0.1:8080/notes/id
+
+post record
+    post request http://127.0.0.1:8080/notes
+    body {
+         "description": "abc"
+        }
+update record
+    put request http://127.0.0.1:8080/notes/id
+    body {
+        "description": "abc"
+       }
+
+delete record
+    delete request http://127.0.0.1:8080/notes/id
