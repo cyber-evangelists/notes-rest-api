@@ -1,10 +1,14 @@
 from fastapi import FastAPI, HTTPException
-from pymongo import MongoClient
+import pymongo
 from pydantic import BaseModel, Field
 from bson import ObjectId
 import uvicorn
+import os
 
-client = MongoClient("mongodb://localhost:27017/")
+#client = MongoClient("mongodb://localhost:27017/")
+#MONGO_URI ="mongodb://localhost:27017/" 
+MONGO_URI = os.environ.get("MONGO_URI")
+client = pymongo.MongoClient(MONGO_URI)
 db = client["notes"]
 collection = db["notes"]
 
@@ -31,7 +35,7 @@ async def read_all_notes():
         note_dict["id"] = str(note_dict.pop("_id"))
         notes.append(Note(**note_dict))
     return notes
-    
+
 @app.get("/notes/{note_id}")
 async def read_note(note_id: str):
     #print(note_id)
